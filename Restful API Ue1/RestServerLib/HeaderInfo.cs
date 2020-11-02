@@ -4,8 +4,9 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Diagnostics;
 
-namespace Restful_API_Ue1
+namespace RestServerLib
 {
     public class HeaderInfo
     {

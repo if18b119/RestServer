@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+using System.Diagnostics;
 
-namespace Restful_API_Ue1
+namespace RestServerLib
 {
     public class RequestKontext
     {
@@ -24,8 +28,6 @@ namespace Restful_API_Ue1
         {
             String type = "";
             String options = "";
-            String client = "";
-            String host = "";
             String protocol = "";
             String body = "";
 
@@ -65,7 +67,7 @@ namespace Restful_API_Ue1
             int index = 0;
             foreach (string line in tokens)
             {
-                if (line.Contains(':'))
+                if (line.Contains(":"))
                 {
                     string[] tmp1 = line.Split(':');
                     HeaderInformation.Add(new HeaderInfo(tmp1[0], tmp1[1]));

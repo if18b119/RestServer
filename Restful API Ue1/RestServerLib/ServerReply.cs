@@ -4,8 +4,9 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Diagnostics;
 
-namespace Restful_API_Ue1
+namespace RestServerLib
 {
     public class ServerReply
     {
@@ -72,7 +73,7 @@ namespace Restful_API_Ue1
 
         public static ServerReply GET(RequestKontext req)
         {
-            string[] frag = req.Options.Split("/");
+            string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 2)
             {
                 string name;
@@ -132,7 +133,7 @@ namespace Restful_API_Ue1
         }
         public static ServerReply POST(RequestKontext req)
         {
-            string[] frag = req.Options.Split("/");
+            string[] frag = req.Options.Split('/');
             int num_of_files = Directory.GetFiles(pfad).Length;
             if (frag[1] == "messages" && frag.Length == 2)
             {
@@ -162,7 +163,7 @@ namespace Restful_API_Ue1
 
         public static ServerReply PUT(RequestKontext req)
         {
-            string[] frag = req.Options.Split("/");
+            string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 3)
             {
                 if (Convert.ToInt32(frag[2]) <= Directory.GetFiles(pfad).Length && Convert.ToInt32(frag[2]) > 0 && frag[2] != "")
@@ -195,7 +196,7 @@ namespace Restful_API_Ue1
 
         public static ServerReply DELETE(RequestKontext req)
         {
-            string[] frag = req.Options.Split("/");
+            string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 3)
             {
                 if (Convert.ToInt32(frag[2]) <= Directory.GetFiles(pfad).Length && Convert.ToInt32(frag[2]) > 0 && frag[2] != "")//if the index doesn't pass the number of messages

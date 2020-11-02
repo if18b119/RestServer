@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restful API Ue1", "Restful API Ue1\Restful API Ue1.csproj", "{653B9AA5-1A26-46B3-B394-980FDE844804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restful API Ue1", "Restful API Ue1\Restful API Ue1.csproj", "{653B9AA5-1A26-46B3-B394-980FDE844804}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestProjectRestServer", "NUnitTestProjectRestServer\NUnitTestProjectRestServer.csproj", "{112F2207-2050-4B2B-BDED-FCED22EED21D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestServerLib", "RestServerLib\RestServerLib.csproj", "{976B6128-72D8-4C48-832E-60C61D528EE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{653B9AA5-1A26-46B3-B394-980FDE844804}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{653B9AA5-1A26-46B3-B394-980FDE844804}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{653B9AA5-1A26-46B3-B394-980FDE844804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{112F2207-2050-4B2B-BDED-FCED22EED21D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{112F2207-2050-4B2B-BDED-FCED22EED21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{112F2207-2050-4B2B-BDED-FCED22EED21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{112F2207-2050-4B2B-BDED-FCED22EED21D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{976B6128-72D8-4C48-832E-60C61D528EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976B6128-72D8-4C48-832E-60C61D528EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976B6128-72D8-4C48-832E-60C61D528EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976B6128-72D8-4C48-832E-60C61D528EE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

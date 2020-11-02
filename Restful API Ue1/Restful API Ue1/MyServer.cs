@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Restful_API_Ue1
 {
-    class MyServer
+    public class MyServer
     {
         public const String TYPE = "HTTP/1.1";
         private int port;

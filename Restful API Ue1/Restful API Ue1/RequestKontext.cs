@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Restful_API_Ue1
 {
-    class RequestKontext
+    public class RequestKontext
     {
         public String Type { get; private set; }
         public String Options { get; private set; }

@@ -67,7 +67,7 @@ namespace RestServerLib
             {
                 msg += stream.ReadLine() + "\n"; //Hier wird der Stream in dem string gespeichert
             }
-            Console.WriteLine(msg);
+
             RequestKontext req = RequestKontext.GetRequest(msg);
             ServerReply reply = ServerReply.HandlingRequest(req);
             using (StreamWriter writer = new StreamWriter(client.GetStream())) //using für Idisposable

@@ -9,6 +9,7 @@ namespace Tests
         public void Setup()
         {
             MyServer server = new MyServer(6543);
+
         }
 
         [Test]

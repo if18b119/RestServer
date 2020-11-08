@@ -62,6 +62,10 @@ namespace RestServerLib
             String msg = ""; // Die Infos werden hier gespeichert
             //StreamWrite, Flush -> senden, despose -> schließen
 
+            if(stream==null)
+            {
+                throw new NullReferenceException("NULL VALUE!");
+            }
 
             while (stream.Peek() != -1) //Peek returned den nächsten Charakter oder -1 wenn keine mehr vorhanden sind
             {

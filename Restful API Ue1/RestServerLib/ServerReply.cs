@@ -109,7 +109,7 @@ namespace RestServerLib
                     StringBuilder tmp = new StringBuilder();
                     file_on_index = Convert.ToString(Directory.GetFiles(pfad).GetValue(index));
                     tmp.Append("Name: ");
-                    tmp.Append(file_on_index.Remove(0, 122));
+                    tmp.Append(file_on_index.Remove(0, 117));
                     tmp.Append("Nachricht: \n");
                     using (var streamReader = new StreamReader(file_on_index, Encoding.UTF8))
                     {

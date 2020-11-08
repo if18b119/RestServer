@@ -33,7 +33,7 @@ namespace RestServerLib
 
         public static ServerReply HandlingRequest(RequestKontext req)
         {
-            pfad = "C:\\Users\\titto\\Desktop\\3.Semester\\Software Engineering\\RestServer\\Restful API Ue1\\Messages";
+            pfad = "C:\\Users\\titto\\Desktop\\3.Semester\\Software Engineering\\RestServer\\Restful API Ue1\\Messages\\";
             if (req == null)
             {
                 return BadRequest(req);
@@ -87,7 +87,7 @@ namespace RestServerLib
                 foreach (string value in messages)
                 {
                    
-                    name = value.Replace(pfad+"\\","");
+                    name = value.Replace(pfad,"");
                     tmp.Append("Name: ");
                     tmp.Append(name);
                     tmp.Append("\n");
@@ -112,13 +112,14 @@ namespace RestServerLib
                     StringBuilder tmp = new StringBuilder();
                     file_on_index = Convert.ToString(Directory.GetFiles(pfad).GetValue(index));
                     tmp.Append("Name: ");
-                    tmp.Append(file_on_index.Remove(0, 117));
-                    tmp.Append("Nachricht: \n");
+                    tmp.Append(file_on_index.Remove(0, pfad.Length));
+                    tmp.Append("\n");
+                    tmp.Append("Nachricht:\n");
                     using (var streamReader = new StreamReader(file_on_index, Encoding.UTF8))
                     {
                         tmp.Append(streamReader.ReadToEnd());
                     }
-                    tmp.Append("\n");
+                    
 
                     string _return = Convert.ToString(tmp);
 
@@ -138,6 +139,10 @@ namespace RestServerLib
         }
         public static ServerReply POST(RequestKontext req)
         {
+            if (req.Options.Contains("/") == false)
+            {
+                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+            }
             string[] frag = req.Options.Split('/');
             int num_of_files = Directory.GetFiles(pfad).Length;
             if (frag[1] == "messages" && frag.Length == 2)
@@ -168,6 +173,10 @@ namespace RestServerLib
 
         public static ServerReply PUT(RequestKontext req)
         {
+            if (req.Options.Contains("/") == false)
+            {
+                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+            }
             string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 3)
             {
@@ -201,6 +210,10 @@ namespace RestServerLib
 
         public static ServerReply DELETE(RequestKontext req)
         {
+            if (req.Options.Contains("/") == false)
+            {
+                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+            }
             string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 3)
             {

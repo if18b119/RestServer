@@ -10,10 +10,10 @@ namespace RestServerLib
 {
     public class RequestKontext
     {
-        public String Type { get; private set; }
-        public String Options { get; private set; }
-        public String Protocol { get; private set; }
-        public String Body { get; private set; }
+        public String Type { get;  set; }
+        public String Options { get;  set; }
+        public String Protocol { get;  set; }
+        public String Body { get;  set; }
 
         public static List<HeaderInfo> HeaderInformation = new List<HeaderInfo>();
         public RequestKontext(string type, string options, string protocol, string body)

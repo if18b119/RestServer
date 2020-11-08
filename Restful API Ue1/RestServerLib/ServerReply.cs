@@ -15,8 +15,8 @@ namespace RestServerLib
         public String Data { get; set; }
         public String ContentType { get; set; }
 
-        private static String pfad = Environment.CurrentDirectory;
-
+        private static String pfad;
+        
 
 
 
@@ -33,8 +33,7 @@ namespace RestServerLib
 
         public static ServerReply HandlingRequest(RequestKontext req)
         {
-            pfad = pfad.Substring(0, 108);
-            pfad += "Messages\\";
+            pfad = "C:\\Users\\titto\\Desktop\\3.Semester\\Software Engineering\\RestServer\\Restful API Ue1\\Messages";
             if (req == null)
             {
                 return BadRequest(req);
@@ -73,7 +72,11 @@ namespace RestServerLib
         }
 
         public static ServerReply GET(RequestKontext req)
-        {
+        {   
+            if(req.Options.Contains("/")==false)
+            {
+                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+            }
             string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 2)
             {
@@ -84,7 +87,7 @@ namespace RestServerLib
                 foreach (string value in messages)
                 {
                    
-                    name = value.Remove(0, 117);
+                    name = value.Replace(pfad+"\\","");
                     tmp.Append("Name: ");
                     tmp.Append(name);
                     tmp.Append("\n");

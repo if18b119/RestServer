@@ -23,6 +23,7 @@ namespace RestServerLib
 
         public ServerReply(string protocoll, string status, string data, string content_type)
         {
+            
             Protocoll = protocoll;
             Status = status;
             Data = data;
@@ -32,7 +33,7 @@ namespace RestServerLib
 
         public static ServerReply HandlingRequest(RequestKontext req)
         {
-            pfad = pfad.Remove(113);
+            pfad = pfad.Substring(0, 108);
             pfad += "Messages\\";
             if (req == null)
             {
@@ -82,7 +83,8 @@ namespace RestServerLib
                 StringBuilder tmp = new StringBuilder();
                 foreach (string value in messages)
                 {
-                    name = value.Remove(0, 122);
+                   
+                    name = value.Remove(0, 117);
                     tmp.Append("Name: ");
                     tmp.Append(name);
                     tmp.Append("\n");

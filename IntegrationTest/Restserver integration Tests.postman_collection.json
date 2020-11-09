@@ -643,6 +643,44 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Delete not existing message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0c3785c-941e-4f5a-aedd-ec4ccb62018d",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(416);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages/99",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"99"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

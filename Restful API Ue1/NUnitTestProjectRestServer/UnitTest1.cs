@@ -13,7 +13,8 @@ namespace Tests
     public class Tests
     {
         public RequestKontext req { get; set; }
-       
+        public String Pfad { get; set; } = "C:\\Users\\titto\\Desktop\\3.Semester\\Software Engineering\\RestServer\\Restful API Ue1\\Messages\\";
+
         [SetUp]
         public void Setup()
         {
@@ -29,7 +30,7 @@ namespace Tests
         public bool CheckValues(ServerReply sr,string status, string protocol, string data, string ctype)
         {
             Console.WriteLine("Data \n" + status + "\n" + protocol +"\n" + data + "\n" + ctype +"\n" + "Length: " + (status.Length+protocol.Length+data.Length+ctype.Length));
-            Console.WriteLine("ServerReply \n" + sr.Status+"\n" + sr.Protocoll+"\n"+sr.Data+"\n"+sr.ContentType + "Length: " + (sr.Status.Length + sr.Protocoll.Length + sr.Data.Length + sr.ContentType.Length));
+            Console.WriteLine("ServerReply \n" + sr.Status+"\n" + sr.Protocoll+"\n"+sr.Data+"\n"+sr.ContentType +"\n"+ "Length: " + (sr.Status.Length + sr.Protocoll.Length + sr.Data.Length + sr.ContentType.Length));
             if(sr.Status==status && sr.Protocoll==protocol && sr.Data == data && sr.ContentType==ctype)
             {
                return true;
@@ -42,16 +43,26 @@ namespace Tests
 
         public void CreateMessage()
         {
-            string Pfad = "C:\\Users\\titto\\Desktop\\3.Semester\\Software Engineering\\RestServer\\Restful API Ue1\\Messages\\";
-            File.WriteAllText(Pfad + "Message.txt", "Hello\n");
+            
+            File.WriteAllText(this.Pfad + "Message.txt", "Hello\n");
           
+        }
+
+        public void DeleteMessage()
+        {
+            File.Delete(this.Pfad+"Message.txt");
+        }
+
+        public void DeleteMessage(string filename)
+        {
+            File.Delete(this.Pfad + filename);
         }
 
         [Test]
         public void GetAllMessagesSucc()
-        { 
+        {
             ServerReply sr = SetServerReply();
-            Assert.AreEqual(CheckValues(sr,"200 OK","HTTP/1.1","","text"),true);         
+            Assert.AreEqual(CheckValues(sr,"200 OK","HTTP/1.1","","text"),true);
         }
 
         [Test]
@@ -61,17 +72,31 @@ namespace Tests
             req.Body = "Hello\n";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "1", "text"), true);
+            DeleteMessage("Message 1.txt");
         }
 
         [Test]
         public void ListOneMessage()
         {
             CreateMessage();
-            req.Options += "/1";
+            req.Type = "GET";
+            req.Options = "/messages/1";
+            req.Body = "";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "Name: Message.txt\nNachricht:\nHello\n", "text"), true);
+            DeleteMessage();
         }
-        
+
+        [Test]
+        public void DeleteMsgSucc()
+        {
+            CreateMessage();
+            req.Type = "DELETE";
+            req.Options = "/messages/1";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "", "text"), true);
+        }
         
     }
 }

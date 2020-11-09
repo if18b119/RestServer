@@ -173,6 +173,363 @@
 			"response": []
 		},
 		{
+			"name": "listing a Message that doesn't exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b88d454-c3a2-4a8f-a2ca-d4911dbfa1b8",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(416);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages/99",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sending an unsupported request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc00aa31-c9fd-4274-a3b6-9c85ae78d190",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(405)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sending a broken GET request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b8f676c-cd44-43ea-ba6d-3c8800e9b535",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(400)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/mes",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"mes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sending a broken GET/messages/ request 2.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "219e5d81-3e15-4249-b055-2d71fae75a70",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(400)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages/",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sending a broken  POST request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8b2944b-8752-4e2b-b356-6fbc0e7318e9",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(400)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sending a broken POST request/messages 2.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23bb9d44-0d6f-4ed8-9236-b4fdccb8cde3",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(400)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages/2",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "try changing a message that doesnt exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "153b3ad3-0be9-4581-bccd-b657549f55de",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(416);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Hello 2.0\r\n"
+				},
+				"url": {
+					"raw": "localhost:13000/messages/99",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create second Message response should be 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c19692e-3ff2-463e-bc27-b852fb622e41",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.have.body(\"2\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Hey\r\n",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "localhost:13000/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages"
+					]
+				},
+				"description": "creating a Message by sending a Post request"
+			},
+			"response": []
+		},
+		{
+			"name": "try rewrite a message with no given body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1fea58e7-5ba7-4429-8537-45ce179909d4",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:13000/messages/1",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete message",
 			"event": [
 				{
@@ -208,6 +565,82 @@
 					]
 				},
 				"description": "by sending a delete request and an ID the client should be able to delete the message with the ID given from the Servers saved messages, if the ID doesnt exist the client should be notified."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete message Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7d8fd10-aa56-4359-8853-b08baee1bc79",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages/1",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"1"
+					]
+				},
+				"description": "by sending a delete request and an ID the client should be able to delete the message with the ID given from the Servers saved messages, if the ID doesnt exist the client should be notified."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete message broken request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b43d888-300b-42dc-8103-a663d8cd9800",
+						"exec": [
+							"pm.test(\"Status test\", function () {  \r",
+							"    pm.response.to.have.status(400)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages"
+					]
+				}
 			},
 			"response": []
 		}

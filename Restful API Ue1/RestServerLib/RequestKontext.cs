@@ -10,10 +10,10 @@ namespace RestServerLib
 {
     public class RequestKontext
     {
-        public String Type { get;  set; }
-        public String Options { get;  set; }
-        public String Protocol { get;  set; }
-        public String Body { get;  set; }
+        public String Type { get; set; } = "";
+        public String Options { get; set; } = "";
+        public String Protocol { get; set; } = "";
+        public String Body { get; set; } = "";
 
         public static List<HeaderInfo> HeaderInformation = new List<HeaderInfo>();
         public RequestKontext(string type, string options, string protocol, string body)
@@ -76,7 +76,6 @@ namespace RestServerLib
                 if (line == "")
                 {
                     index = Array.FindIndex(tokens, row => row == line);
-
                     for (int i = index + 1; i<tokens.Length; i++)
                     {
                         body += tokens[i];

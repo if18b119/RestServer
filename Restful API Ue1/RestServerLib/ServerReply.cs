@@ -103,7 +103,7 @@ namespace RestServerLib
                 string _return = tmp.ToString();
                 return new ServerReply(req.Protocol, "200 OK", _return, "text");
             }
-            else if (frag[1] == "messages" && frag.Length == 3) // frag[0]="", frag[1]="messages", frag[3]=integer
+            else if (frag[1] == "messages" && frag.Length == 3 && frag[2]!="") // frag[0]="", frag[1]="messages", frag[3]=integer
             {
                 if (Convert.ToInt32(frag[2]) <= Directory.GetFiles(pfad).Length && frag[2] != "" && Convert.ToInt32(frag[2]) > 0)//if the index doesn't pass the number of messages
                 {
@@ -134,7 +134,7 @@ namespace RestServerLib
             }
             else
             {
-                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
             }
         }
         public static ServerReply POST(RequestKontext req)
@@ -167,7 +167,7 @@ namespace RestServerLib
             }
             else
             {
-                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
             }
         }
 
@@ -182,7 +182,7 @@ namespace RestServerLib
             {
                 if (Convert.ToInt32(frag[2]) <= Directory.GetFiles(pfad).Length && Convert.ToInt32(frag[2]) > 0 && frag[2] != "")
                 {
-                    if (req.Body != "")
+                    if (req.Body[0] != '\n')
                     {
                         string file_on_index;
                         int index = Convert.ToInt32(frag[2]) - 1;
@@ -204,7 +204,7 @@ namespace RestServerLib
             }
             else
             {
-                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
             }
         }
 
@@ -212,7 +212,7 @@ namespace RestServerLib
         {
             if (req.Options.Contains("/") == false)
             {
-                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
             }
             string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 3)
@@ -231,7 +231,7 @@ namespace RestServerLib
             }
             else
             {
-                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
             }
 
         }

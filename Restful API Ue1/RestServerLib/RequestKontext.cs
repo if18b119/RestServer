@@ -77,7 +77,7 @@ namespace RestServerLib
                 {
                     index = Array.FindIndex(tokens, row => row == line);
 
-                    for (int i = index + 1; tokens[i] != ""; i++)
+                    for (int i = index + 1; i<tokens.Length; i++)
                     {
                         body += tokens[i];
                         body += "\n";

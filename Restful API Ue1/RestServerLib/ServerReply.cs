@@ -222,7 +222,7 @@ namespace RestServerLib
                     int index = Convert.ToInt32(frag[2]) - 1;
                     string file_on_index = Convert.ToString(Directory.GetFiles(pfad).GetValue(index));
                     File.Delete(file_on_index);
-                    return new ServerReply(req.Protocol, "200 OK", "Deleted succesfully!", "text");
+                    return new ServerReply(req.Protocol, "200 OK", "", "text");
                 }
                 else
                 {

@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "3418e717-eebe-4962-87e4-baa09149d8ce",
+		"name": "Restserver integration Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10510cc3-6a3b-48e5-84a8-96b0581336f7",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.have.body(\"1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Hey\r\n",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "localhost:13000/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages"
+					]
+				},
+				"description": "creating a Message by sending a Post request"
+			},
+			"response": []
+		},
+		{
+			"name": "Viewing all Messages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4738e46f-e047-420d-84fd-07c18f8b61ef",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"     pm.response.to.be.withBody;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages"
+					]
+				},
+				"description": "By sending a GET request the client should be able to view all messages that the server has stored"
+			},
+			"response": []
+		},
+		{
+			"name": "View one single Message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c4c840e-ede9-4b97-8ccf-8ba5bcb2f59c",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"     pm.response.to.be.withBody;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages/1",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"1"
+					]
+				},
+				"description": "By sending a GET request with an additional id the client should be able to view the message with the id, if the id isn't in the Server's saved messages, the client will be notified."
+			},
+			"response": []
+		},
+		{
+			"name": "Overwriting a message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b30ad591-2d54-4f9e-9f39-b78c6e44a383",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "Hey 2.0\r\n",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "localhost:13000/messages/1",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"1"
+					]
+				},
+				"description": "by sending a PUT request with an ID and a Message, the client should be able to overwrite the message with the given ID, if the ID doesn't exist the client would be notified."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "012bded3-c24f-4e75-8089-275f689cb377",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body test\", function() {\r",
+							"    const responseText=pm.response.text();\r",
+							"     pm.expect(responseText).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:13000/messages/1",
+					"host": [
+						"localhost"
+					],
+					"port": "13000",
+					"path": [
+						"messages",
+						"1"
+					]
+				},
+				"description": "by sending a delete request and an ID the client should be able to delete the message with the ID given from the Servers saved messages, if the ID doesnt exist the client should be notified."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

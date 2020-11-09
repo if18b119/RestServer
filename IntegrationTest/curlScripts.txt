@@ -2,7 +2,10 @@
 ******************POST message***return id**************************
 ********************************************************************
 
-curl -d "message payload\r\n" -X POST localhost:13000/messages
+curl -d "message payload\r\n " -X POST localhost:13000/messages
+$ curl -X POST http://localhost:13000/messages --header "Content-Type: text" -d "\r\nHello\r\n\r\n "
+
+
 
 POST /messages HTTP/1.1
 Host: localhost:13000

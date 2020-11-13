@@ -26,6 +26,12 @@ namespace Tests
         {
             return ServerReply.HandlingRequest(req);
         }
+
+        public int GetNumOfFiles()
+        {
+            string[] tmp = Directory.GetFiles(this.Pfad);
+            return tmp.Length;
+        }
         
         public bool CheckValues(ServerReply sr,string status, string protocol, string data, string ctype)
         {
@@ -69,6 +75,7 @@ namespace Tests
             req.Body = "Hello\n";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "1", "text"), true);
+            Assert.AreEqual(GetNumOfFiles(), 1);
             DeleteMessage("Message 1.txt");
         }
 
@@ -79,7 +86,7 @@ namespace Tests
             req.Options = "/messages";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
-            
+            Assert.AreEqual(GetNumOfFiles(), 0);
         }
 
         [Test]
@@ -89,6 +96,7 @@ namespace Tests
             req.Options = "/messages/2";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
+            Assert.AreEqual(GetNumOfFiles(), 0);
         }
         //-------------------LIST-------------------//
         [Test]
@@ -106,6 +114,7 @@ namespace Tests
             req.Options = "/messages/1";
             req.Body = "";
             ServerReply sr = SetServerReply();
+            Assert.AreEqual(GetNumOfFiles(), 1);
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "Name: Message.txt\nNachricht:\nHello\n", "text"), true);
             DeleteMessage();
         }
@@ -118,7 +127,7 @@ namespace Tests
             req.Body = "";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "416 Range Not Satisfiable", "HTTP/1.1", "", "text"), true);
-            DeleteMessage();
+           
         }
 
         [Test]
@@ -141,6 +150,7 @@ namespace Tests
             req.Body = "";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "", "text"), true);
+            Assert.AreEqual(GetNumOfFiles(), 0);
         }
 
         [Test]
@@ -171,6 +181,7 @@ namespace Tests
             req.Options = "/messages/1";
             req.Body = "Hey2";
             ServerReply sr = SetServerReply();
+            Assert.AreEqual(GetNumOfFiles(), 1);
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "", "text"), true);
             DeleteMessage();
         }

@@ -1,0 +1,52 @@
+@startuml
+ class HeaderInfo
+ {
+    +key : string {get; set;}
+    +value :string {get; set;}
+    +<<Create>>HeaderInfo (x : string, y: string)
+ }
+ 
+ class MyServer
+ {
+    + {const} Type : string
+    - port :int
+    + name : string
+    - is_connected : bool
+    - listener: TcpListener
+    +<<Create>>Myserver (port : int)
+    + StartListetning() : void
+    +ClientHandler(client : TcpClient) : void
+    
+ }
+ 
+ class RequestKontext
+ {
+    +Type : string {get; set;}
+    + Options: string {get; set;}
+    + Protocol : string {get; set;}
+    + Body : string : {get; set;}
+    +{static} HeaderInformation : List<HeaderInfo>
+    +<<Create>> RequestKontext (type : string, options : string, protocol : string, body : string)
+    + {static} GetRequest (request : string) : RequestKontext
+    
+ }
+ 
+ class ServerReply
+ {
+    + Protocoll : string {get; set;}
+    + Status : string {get; set;}
+    + Data : string {get; set;}
+    + ContentType : string {get; set;}
+    -{static} pfad: string
+    + <<Create>> ServerReply (protocoll: string, status : string, data: string, content_type : string)
+    + {static} HandlingRequest (req: RequestKontext) : ServerReply
+    + {static} GET (req : RequestKontext) : ServerReply
+    + {static} POST (req : RequestKontext) : ServerReply
+    + {static} PUT (req : RequestKontext) : ServerReply
+    + {static} DELETE (req : RequestKontext) : ServerReply
+   
+ }
+  RequestKontext -- HeaderInfo
+  MyServer -- RequestKontext
+  MyServer -- ServerReply
+@enduml

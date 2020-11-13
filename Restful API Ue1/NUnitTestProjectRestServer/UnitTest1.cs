@@ -58,13 +58,10 @@ namespace Tests
             File.Delete(this.Pfad + filename);
         }
 
-        [Test]
-        public void GetAllMessagesSucc()
-        {
-            ServerReply sr = SetServerReply();
-            Assert.AreEqual(CheckValues(sr,"200 OK","HTTP/1.1","","text"),true);
-        }
-
+      
+      /// //////////////////////////////
+     
+        //-------------------SEND-------------------//
         [Test]
         public void SendMessage()
         {
@@ -73,6 +70,32 @@ namespace Tests
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "1", "text"), true);
             DeleteMessage("Message 1.txt");
+        }
+
+        [Test]
+        public void SendMessageBrokenRequest()
+        {
+            req.Type = "POST";
+            req.Options = "/messages";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
+            
+        }
+
+        [Test]
+        public void SendMessageBrokenRequest2()
+        {
+            req.Type = "POST";
+            req.Options = "/messages/2";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
+        }
+        //-------------------LIST-------------------//
+        [Test]
+        public void GetAllMessagesSucc()
+        {
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "", "text"), true);
         }
 
         [Test]
@@ -88,6 +111,28 @@ namespace Tests
         }
 
         [Test]
+        public void ListOneMessageNotExisting()
+        {
+            req.Type = "GET";
+            req.Options = "/messages/99";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "416 Range Not Satisfiable", "HTTP/1.1", "", "text"), true);
+            DeleteMessage();
+        }
+
+        [Test]
+        public void ListMessageBrokenRequest()
+        {
+            req.Type = "GET";
+            req.Options = "/messages/";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
+            
+        }
+        //-------------------Delete-------------------//
+        [Test]
         public void DeleteMsgSucc()
         {
             CreateMessage();
@@ -97,6 +142,68 @@ namespace Tests
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "", "text"), true);
         }
-        
+
+        [Test]
+        public void DeleteMsgNotExisiting()
+        {
+            req.Type = "DELETE";
+            req.Options = "/messages/99";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "416 Range Not Satisfiable", "HTTP/1.1", "", "text"), true);
+        }
+
+        [Test]
+        public void DeleteBrokenRequest()
+        {
+            req.Type = "DELETE";
+            req.Options = "/messages";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
+        }
+        //-------------------PUT-------------------//
+        [Test]
+        public void PUTMessage()
+        {
+            CreateMessage();
+            req.Type = "PUT";
+            req.Options = "/messages/1";
+            req.Body = "Hey2";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "200 OK", "HTTP/1.1", "", "text"), true);
+            DeleteMessage();
+        }
+        [Test]
+        public void PUTBrokenRequest()
+        {
+            req.Type = "PUT";
+            req.Options = "/messages";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
+        }
+
+        [Test]
+        public void PUTMessageNotExisting()
+        {
+            req.Type = "PUT";
+            req.Options = "/messages/99";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "416 Range Not Satisfiable", "HTTP/1.1", "", "text"), true);
+        }
+        /////////////////////////
+        [Test]
+        public void NotSupportedRequest()
+        {
+            req.Type = "PATCH";
+            req.Options = "/messages/99";
+            req.Body = "";
+            ServerReply sr = SetServerReply();
+            Assert.AreEqual(CheckValues(sr, "405 Method Not Allowed", "HTTP/1.1", "", "text"), true);
+        }
+
+
     }
 }

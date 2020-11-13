@@ -6,12 +6,42 @@ namespace Restful_API_Ue1
     {
         static void Main(string[] args)
         {
+            int port = -1;
            
-            Console.Write("Please enter a Port: ");
-            int port_eingabe = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Starting Server on Port " + port_eingabe);
+           while (true)
+            {
+                try
+                {
+                    Console.Write("Please enter a Port: ");
+                    string input = Console.ReadLine();
+                    if(!int.TryParse(input, out port))
+                    {
+                        throw new Exception("Error: Input not a number!");
+                    }
+                    else
+                    {
+                        port = Convert.ToInt32(input);
+                        if(port<1024 || port> 49151)
+                        {
+                            throw new Exception("Error: Port must be between 1024 - 49151!");
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
+            }
+            
+            Console.WriteLine("Starting Server on Port " + port);
 
-            MyServer server = new MyServer(port_eingabe);
+            MyServer server = new MyServer(port);
             server.StartListening();
         }
     }

@@ -10,9 +10,7 @@ namespace RestServerLib
 {
     public class MyServer
     {
-        public const String TYPE = "HTTP/1.1";
-        private int port;
-        public string name;
+        private int port; 
         private bool is_connected = false;
         private TcpListener listener;
 
@@ -21,7 +19,6 @@ namespace RestServerLib
         public MyServer(int port_)
         {
             this.port = port_;
-            this.name = "localhost:" + port_;
             listener = new TcpListener(IPAddress.Any, port);
         }
 

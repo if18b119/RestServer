@@ -38,6 +38,8 @@ namespace RestServerLib
             {
                 return BadRequest(req);
             }
+
+            //Header Informationen vom  client werden ausgegeben
             Console.WriteLine($"Type: {req.Type}");
             Console.WriteLine($"Request: {req.Options}");
             Console.WriteLine($"Protocoll: {req.Protocol}");
@@ -46,7 +48,7 @@ namespace RestServerLib
             {
                 Console.WriteLine($"{tmp.key}:{tmp.value}");
             }
-
+            ///
             if (req.Type == "GET")
             {
                 return GET(req);
@@ -67,17 +69,17 @@ namespace RestServerLib
             }
             else
             {
-                return new ServerReply(req.Protocol, "405 Method Not Allowed", "", "text"); ;
+                return new ServerReply(req.Protocol, "405 Method Not Allowed", "", "text"); 
             }
         }
 
         public static ServerReply GET(RequestKontext req)
         {   
-            if(req.Options.Contains("/")==false)
+            if(req.Options.Contains("/")==false)    //Get - localhost:123123/messages/1
             {
                 return new ServerReply(req.Protocol, "404 Not Found", "", "text");
             }
-            string[] frag = req.Options.Split('/');
+            string[] frag = req.Options.Split('/'); //---/messages
             if (frag[1] == "messages" && frag.Length == 2)
             {
                 string name;
@@ -128,20 +130,20 @@ namespace RestServerLib
 
                 else
                 {
-                    return new ServerReply(req.Protocol, "416 Range Not Satisfiable", "", "text");
+                    return OuttaRange(req);
                 }
 
             }
             else
             {
-                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+                return BadRequest(req);
             }
         }
         public static ServerReply POST(RequestKontext req)
         {
             if (req.Options.Contains("/") == false)
             {
-                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+                return BadRequest(req);
             }
             string[] frag = req.Options.Split('/');
             int num_of_files = Directory.GetFiles(pfad).Length;
@@ -149,7 +151,7 @@ namespace RestServerLib
             {
                 if (req.Body == "")
                 {
-                    return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+                    return BadRequest(req);
                 }
                 else
                 {
@@ -167,7 +169,7 @@ namespace RestServerLib
             }
             else
             {
-                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+                return BadRequest(req);
             }
         }
 
@@ -175,7 +177,7 @@ namespace RestServerLib
         {
             if (req.Options.Contains("/") == false)
             {
-                return new ServerReply(req.Protocol, "404 Not Found", "", "text");
+                return BadRequest(req);
             }
             string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 3)
@@ -193,18 +195,18 @@ namespace RestServerLib
 
                     else
                     {
-                        return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+                        return BadRequest(req);
                     }
 
                 }
                 else
                 {
-                    return new ServerReply(req.Protocol, "416 Range Not Satisfiable", "", "text");
+                    return OuttaRange(req);
                 }
             }
             else
             {
-                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+                return BadRequest(req);
             }
         }
 
@@ -212,7 +214,7 @@ namespace RestServerLib
         {
             if (req.Options.Contains("/") == false)
             {
-                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+                return BadRequest(req);
             }
             string[] frag = req.Options.Split('/');
             if (frag[1] == "messages" && frag.Length == 3)
@@ -226,19 +228,24 @@ namespace RestServerLib
                 }
                 else
                 {
-                    return new ServerReply(req.Protocol, "416 Range Not Satisfiable", "", "text");
+                    return OuttaRange(req);
                 }
             }
             else
             {
-                return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+                return BadRequest(req);
             }
 
         }
 
         public static ServerReply BadRequest(RequestKontext req)
+        {   
+             return new ServerReply(req.Protocol, "400 Bad Request", "", "text");            
+        }
+
+        public static ServerReply OuttaRange(RequestKontext req)
         {
-            return new ServerReply(req.Protocol, "400 Bad Request", "", "text");
+            return new ServerReply(req.Protocol, "416 Range Not Satisfiable", "", "text");
         }
     }
 }

@@ -46,7 +46,7 @@ namespace RestServerLib
                 return null;
             }
             /*
-            OPTIONS / HTTP/1.1
+            OPTIONS /messages HTTP/1.1
             Host: localhost:8080
             Connection: keep-alive
             Accept: *

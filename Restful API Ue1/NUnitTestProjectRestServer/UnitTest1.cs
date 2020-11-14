@@ -83,7 +83,7 @@ namespace Tests
         public void SendMessageBrokenRequest()
         {
             req.Type = "POST";
-            req.Options = "/messages";
+            req.Options = "/messages/";
             ServerReply sr = SetServerReply();
             Assert.AreEqual(CheckValues(sr, "400 Bad Request", "HTTP/1.1", "", "text"), true);
             Assert.AreEqual(GetNumOfFiles(), 0);
